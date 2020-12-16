@@ -3,22 +3,33 @@ import RecipeCard from '../recipeCard/RecipeCard.component';
 
 import RecipesWrapper from './styles';
 
+import { useQuery } from 'urql';
+import { recipesQuery } from '../../graphql/queries/recipesQuery';
+
 interface RecipesListProps {}
 
 const RecipesList: FunctionComponent<RecipesListProps> = () => {
+  const [recipesResult] = useQuery({
+    query: recipesQuery,
+  });
+
+  const { data, fetching, error } = recipesResult;
+
+  if (fetching) return <p>Carregando...</p>;
+
+  if (error) return <p>Algo deu errado... {error.message}</p>;
+
   return (
     <RecipesWrapper>
-      <RecipeCard
-        name="Bolo de Cenoura"
-        description="Um bolo delicioso de cenoura"
-        ingredients={['Cenoura', 'Chocolate']}
-      />
-
-      <RecipeCard
-        name="Bolo de Cereja"
-        description="Um bolo incrível de cereja"
-        ingredients={['Cerejas', 'Chocolate']}
-      />
+      {data.recipes.map((recipe: any) => (
+        <RecipeCard
+          id={recipe.id}
+          key={recipe.id}
+          name={recipe.name}
+          description={recipe.description}
+          ingredients={[...recipe.ingredients]}
+        />
+      ))}
     </RecipesWrapper>
   );
 };

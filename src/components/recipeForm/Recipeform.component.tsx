@@ -1,22 +1,23 @@
-import React, { FunctionComponent } from 'react';
-import { Form, Title, InputsWrapper, Input, FinishButton } from './styles';
+import React, { FunctionComponent, useContext } from 'react';
+
+import { AppContext } from '../../context/context';
+
+import Form from '../form/Form.component';
 
 const Recipeform: FunctionComponent = () => {
-  return (
-    <Form>
-      <Title>Registrar receita</Title>
+  const [appContext] = useContext(AppContext);
 
-      <InputsWrapper>
-        <Input type="text" placeholder="Nome da sua receita" />
+  if (appContext.isCreateRecipeFormOpen) {
+    return <Form btnName="Criar" formType="create" title="Criar receita" />;
+  }
 
-        <Input type="text" placeholder="Descrição da sua receita" />
+  if (appContext.isUpdateRecipeFormOpen) {
+    return (
+      <Form btnName="Atualizar" formType="update" title="Atualizar receita" />
+    );
+  }
 
-        <Input type="text" placeholder="Ingredientes (separados por virgula)" />
-
-        <FinishButton type="button">Criar</FinishButton>
-      </InputsWrapper>
-    </Form>
-  );
+  return null;
 };
 
 export default Recipeform;

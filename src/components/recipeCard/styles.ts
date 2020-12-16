@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Card = styled.div`
   width: 100%;
@@ -43,6 +43,7 @@ export const Ingredient = styled(Description)`
   margin: 5px 10px;
   padding: 5px;
   background-color: #7b85e2;
+  border-radius: 4px;
 `;
 
 export const ActionsWrapper = styled(TextWrapper)`
@@ -58,6 +59,7 @@ export const UpdateButton = styled.button`
   color: #ffffff;
   cursor: pointer;
   border: none;
+  border-radius: 4px;
   outline: none;
 
   &&:hover {

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CreateButton = styled.button`
   margin: 30px 0px 0px 0px;
@@ -9,6 +9,7 @@ export const CreateButton = styled.button`
   font-weight: bold;
   font-size: 20px;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
   transition: 150ms ease;
   outline: none;

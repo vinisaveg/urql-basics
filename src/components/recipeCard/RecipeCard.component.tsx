@@ -1,4 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
+
+import { useMutation } from 'urql';
+import { deleteRecipeMutation } from '../../graphql/mutations/deleteRecipeMutation';
+
+import { AppContext } from '../../context/context';
 import {
   Card,
   TextWrapper,
@@ -19,10 +24,28 @@ interface RecipeCardProps {
 }
 
 const RecipeCard: FunctionComponent<RecipeCardProps> = ({
+  id,
   name,
   description,
   ingredients,
 }) => {
+  const [appContext, setAppContext] = useContext(AppContext);
+  const [deleteRecipeResult, deleteRecipe] = useMutation(deleteRecipeMutation);
+
+  const openUpdateForm = () => {
+    setAppContext({
+      ...appContext,
+      isCreateRecipeFormOpen: false,
+      isUpdateRecipeFormOpen: true,
+      recipeIdToUpdate: id ? id : '',
+    });
+  };
+
+  const handleDeleteRecipe = async () => {
+    //Delete Recipe Mutation
+    await deleteRecipe({ id });
+  };
+
   return (
     <Card>
       <TextWrapper>
@@ -46,8 +69,8 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({
       <TextWrapper>
         <TextLabel>Opções</TextLabel>
         <ActionsWrapper>
-          <UpdateButton>Atualizar</UpdateButton>
-          <DeleteButton>Deletar</DeleteButton>
+          <UpdateButton onClick={openUpdateForm}>Atualizar</UpdateButton>
+          <DeleteButton onClick={handleDeleteRecipe}>Deletar</DeleteButton>
         </ActionsWrapper>
       </TextWrapper>
     </Card>
