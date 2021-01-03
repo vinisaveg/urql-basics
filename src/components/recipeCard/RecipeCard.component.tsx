@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext } from 'react';
 
-import { useMutation } from 'urql';
+import { OperationContext, useMutation } from 'urql';
 import { deleteRecipeMutation } from '../../graphql/mutations/deleteRecipeMutation';
 
 import { AppContext } from '../../context/context';
@@ -21,6 +21,7 @@ interface RecipeCardProps {
   name: string;
   description: string;
   ingredients: Array<string>;
+  refreshCallback: (opts?: Partial<OperationContext> | undefined) => void;
 }
 
 const RecipeCard: FunctionComponent<RecipeCardProps> = ({
@@ -28,9 +29,10 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({
   name,
   description,
   ingredients,
+  refreshCallback,
 }) => {
   const [appContext, setAppContext] = useContext(AppContext);
-  const [deleteRecipeResult, deleteRecipe] = useMutation(deleteRecipeMutation);
+  const [, deleteRecipe] = useMutation(deleteRecipeMutation);
 
   const openUpdateForm = () => {
     setAppContext({
@@ -41,9 +43,14 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({
     });
   };
 
+  const refresh = () => {
+    refreshCallback({ requestPolicy: 'network-only' });
+  };
+
   const handleDeleteRecipe = async () => {
     //Delete Recipe Mutation
     await deleteRecipe({ id });
+    refresh();
   };
 
   return (
@@ -62,7 +69,7 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({
         <TextLabel>Ingredientes</TextLabel>
 
         {ingredients.map((ingredient, index) => (
-          <Ingredient key={ingredient[index]}>{ingredient}</Ingredient>
+          <Ingredient key={index}>{ingredient}</Ingredient>
         ))}
       </TextWrapper>
 

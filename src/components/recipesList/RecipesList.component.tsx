@@ -9,7 +9,7 @@ import { recipesQuery } from '../../graphql/queries/recipesQuery';
 interface RecipesListProps {}
 
 const RecipesList: FunctionComponent<RecipesListProps> = () => {
-  const [recipesResult] = useQuery({
+  const [recipesResult, reexecuteQuery] = useQuery({
     query: recipesQuery,
   });
 
@@ -28,6 +28,7 @@ const RecipesList: FunctionComponent<RecipesListProps> = () => {
           name={recipe.name}
           description={recipe.description}
           ingredients={[...recipe.ingredients]}
+          refreshCallback={reexecuteQuery}
         />
       ))}
     </RecipesWrapper>

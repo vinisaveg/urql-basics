@@ -3,9 +3,6 @@ export const deleteRecipeMutation = `
         $id: String!
     ) {
         deleteRecipe(id: $id) {
-            recipe {
-                id
-            }
             error {
                 message
             }

@@ -1,20 +1,23 @@
-export const createRecipeMutation = `
-    mutation(
-        $name: String!,
-        $description: String!,
-        $ingredients: [String!]!
+import gql from 'graphql-tag';
+
+export const createRecipeMutation = gql`
+  mutation($name: String!, $description: String!, $ingredients: [String!]!) {
+    createRecipe(
+      data: {
+        name: $name
+        description: $description
+        ingredients: $ingredients
+      }
     ) {
-        createRecipe(data: {
-            name: $name,
-            description: $description,
-            ingredients: $ingredients
-        }) {
-            recipe {
-                id
-            }
-            error {
-                message
-            }
-        }
+      recipe {
+        id
+        name
+        description
+        ingredients
+      }
+      error {
+        message
+      }
     }
+  }
 `;

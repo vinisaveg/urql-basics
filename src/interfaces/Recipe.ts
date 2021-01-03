@@ -2,7 +2,7 @@ interface Recipe {
   id: string;
   name: string;
   description: string;
-  ingredient: Array<string>;
+  ingredients: Array<string>;
 }
 
 export default Recipe;
