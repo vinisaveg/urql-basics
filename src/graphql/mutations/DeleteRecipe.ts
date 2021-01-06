@@ -1,10 +1,13 @@
-export const DeleteRecipe = `
-    mutation($id: String!) {
-        deleteRecipe(id: $id)  {
-        error{
-            message
-        }
-        success
-        }
+import { gql } from 'urql';
+
+export const DeleteRecipe = gql`
+  mutation($id: String!) {
+    deleteRecipe(id: $id) {
+      __typename
+      error {
+        message
+      }
+      success
     }
+  }
 `;

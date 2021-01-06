@@ -12,9 +12,9 @@ const RecipesList: FunctionComponent = () => {
     query: GetRecipes,
   });
 
-  const [{}, deleteRecipe] = useMutation(DeleteRecipe);
+  const [{ ...options }, deleteRecipe] = useMutation(DeleteRecipe);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: String) => {
     await deleteRecipe({
       id,
     });
@@ -27,7 +27,7 @@ const RecipesList: FunctionComponent = () => {
   return (
     <ul>
       {data?.recipes.map((recipe) => (
-        <li key={recipe.name}>
+        <li key={recipe.id.toString()}>
           <span>{recipe.name}</span>
 
           <span

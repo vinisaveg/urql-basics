@@ -23,6 +23,7 @@ export const client = createClient({
             );
           },
           createRecipe: (result, args, cache, info) => {
+            console.log(result);
             cache.updateQuery(
               {
                 query: GetRecipes,
@@ -34,6 +35,9 @@ export const client = createClient({
             );
           },
         },
+      },
+      keys: {
+        Recipes: (data: any) => null,
       },
     }),
     fetchExchange,
