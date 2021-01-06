@@ -5,8 +5,9 @@ import { useMutation } from 'urql';
 import { CreateRecipe } from './graphql/mutations/CreateRecipe';
 
 import './app.css';
-import { RecipeInput } from './types/RecipeInput';
+
 import RecipesList from './components/RecipesList';
+import { RecipeDataType } from './types';
 
 const App: FunctionComponent = () => {
   const [name, setName] = useState<string>('');
@@ -24,7 +25,7 @@ const App: FunctionComponent = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    let newRecipe: RecipeInput = {
+    let newRecipe: RecipeDataType = {
       name,
       description,
       ingredients,
