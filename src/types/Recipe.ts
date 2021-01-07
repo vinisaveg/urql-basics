@@ -1,8 +1,6 @@
-interface Recipe {
-  id: string;
+export type Recipe = {
+  id: String;
   name: string;
   description: string;
   ingredients: Array<string>;
-}
-
-export default Recipe;
+};

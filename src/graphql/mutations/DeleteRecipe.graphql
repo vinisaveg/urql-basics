@@ -1,0 +1,9 @@
+mutation DeleteRecipe($id: String!) {
+  deleteRecipe(id: $id) {
+    __typename
+    error {
+      message
+    }
+    success
+  }
+}
