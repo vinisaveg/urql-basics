@@ -1,0 +1,37 @@
+mutation CreateRecipe(
+  $name: String!
+  $description: String!
+  $ingredients: [String!]!
+) {
+  createRecipe(
+    data: { name: $name, description: $description, ingredients: $ingredients }
+  ) {
+    __typename
+    recipe {
+      id
+      name
+      description
+      ingredients
+    }
+    error {
+      message
+    }
+  }
+}
+
+mutation CreateRecipe($data: RecipeDataType!) {
+  createRecipe(
+    data: { name: $name, description: $description, ingredients: $ingredients }
+  ) {
+    __typename
+    recipe {
+      id
+      name
+      description
+      ingredients
+    }
+    error {
+      message
+    }
+  }
+}

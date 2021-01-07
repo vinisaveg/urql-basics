@@ -1,20 +1,16 @@
 import { FunctionComponent } from 'react';
 
-import { useQuery, useMutation } from 'urql';
-
-import { GetRecipes } from '../graphql/queries/GetRecipes';
-import { DeleteRecipe } from '../graphql/mutations/DeleteRecipe';
-
-import { RecipesData } from '../types/RecipeData';
+import {
+  useDeleteRecipeMutation,
+  useRecipesQuery,
+} from '../generated/graphql-types';
 
 const RecipesList: FunctionComponent = () => {
-  const [{ fetching, data, error }] = useQuery<RecipesData>({
-    query: GetRecipes,
-  });
+  const [{ fetching, data, error }] = useRecipesQuery();
 
-  const [{ ...options }, deleteRecipe] = useMutation(DeleteRecipe);
+  const [{ ...options }, deleteRecipe] = useDeleteRecipeMutation();
 
-  const handleDelete = async (id: String) => {
+  const handleDelete = async (id: string) => {
     await deleteRecipe({
       id,
     });
